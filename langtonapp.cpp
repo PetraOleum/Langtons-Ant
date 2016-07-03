@@ -1,3 +1,9 @@
+/// @file langtonapp.cpp
+/// @brief Class/implementation of the app
+/// @author Petra
+/// @version 0.1
+/// @date 2016-07-03
+
 #include <cstdio>
 #include "langtonapp.h"
 
@@ -46,19 +52,14 @@ bool LangtonApp::OnInit() {
 		fprintf(stderr, "Window could not be created. SDL error: %s\n", SDL_GetError());
 		return false;
 	}
-	int imgflags = IMG_INIT_PNG;
-	if (! (IMG_Init(imgflags)) & imgflags) {
-		fprintf(stderr, "SDL_Image could not be loaded. %s\n", IMG_GetError());
-		return false;
-	}
 	screensurface = SDL_GetWindowSurface(window);
 	if ((renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED)) == NULL) {
 		fprintf(stderr, "Could not create renderer. SDL error: %s\n", SDL_GetError());
 		return false;
 	}
-	SDL_Surface* loadsurface = IMG_Load("Ant.png");
+	SDL_Surface* loadsurface = SDL_LoadBMP("Ant.bmp");
 	if (loadsurface == NULL) {
-		fprintf(stderr, "Could not load Ant.png. %s\n", IMG_GetError());
+		fprintf(stderr, "Could not load Ant.bmp. %s\n", SDL_GetError());
 		return false;
 	}
 	anttexture = SDL_CreateTextureFromSurface(renderer, loadsurface);
@@ -66,6 +67,20 @@ bool LangtonApp::OnInit() {
 		fprintf(stderr, "Could not convert texture. %s\n", SDL_GetError());
 		return false;
 	}
+	SDL_FreeSurface(loadsurface);
+	loadsurface = SDL_LoadBMP("Ant_r.bmp");
+	if (loadsurface == NULL) {
+		fprintf(stderr, "Could not load Ant_r.bmp. %s\n", SDL_GetError());
+		return false;
+	}
+	ant_r_texture = SDL_CreateTextureFromSurface(renderer, loadsurface);
+	if (ant_r_texture == NULL) {
+		fprintf(stderr, "Could not convert texture. %s\n", SDL_GetError());
+		return false;
+	}
+	antcols[Square_Colour::White] = anttexture;
+	antcols[Square_Colour::Black] = ant_r_texture;
+	SDL_FreeSurface(loadsurface);
 	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 	running = true;
 	return true;
@@ -96,12 +111,13 @@ void LangtonApp::OnEvent(SDL_Event* event) {
 
 void LangtonApp::OnCleanup() {
 	SDL_DestroyTexture(anttexture);
+	SDL_DestroyTexture(ant_r_texture);
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	anttexture = NULL;
+	ant_r_texture = NULL;
 	window = NULL;
 	renderer = NULL;
-	IMG_Quit();
 	SDL_Quit();
 }
 

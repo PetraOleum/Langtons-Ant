@@ -1,8 +1,8 @@
 CC=g++
-LIBS=-lSDL2 -lSDL2_image
+LIBS=-lSDL2
 CFLAGS=-Wall -Wextra -Werror -std=c++11 -Og
-DEPS=langtonapp.h
-OBJ=main.o langtonapp.o
+DEPS=langtonapp.h automata.h
+OBJ=main.o langtonapp.o automata.o
 
 all: langtonsant
 
