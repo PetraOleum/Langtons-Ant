@@ -8,7 +8,6 @@
 #define LANGTONAPP_H
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 #include "automata.h"
 
@@ -17,14 +16,21 @@
 /// @brief Initial height of screen
 #define INIT_SCREEN_HEIGHT 500
 
-/// @brief Size of square (int pixels)
-#define SQUARE_SIZE 10
-
 /// @brief Loop time in (1000 / FPS)
-#define LOOP_TIME (1000/60)
+#define LOOP_TIME (1000/120)
+
+/// @brief Absolute value of A
+///
+/// @param A The value to find the abs of
+///
+/// @return A if A >=0, else -A
+#define ABS(A) ((A < 0) ? -(A) : (A))
 
 class LangtonApp {
 	private:
+		/// @brief The size of the squares (int pixels)
+		int squareSize = 10;
+		
 		/// @brief Whether the app is running
 		bool running = false;
 
@@ -33,6 +39,17 @@ class LangtonApp {
 
 		/// @brief Whether the mouse is down
 		bool mouseDown = false;
+
+		/// @brief Tracking the ant or not
+		bool tracking = true;
+
+		/// @brief y when mouse starts clicking
+		int mousestartx = 0;
+
+		/// @brief y when mouse starts clicking
+		int mousestarty = 0;
+
+		bool paused = false;
 
 		/// @brief Handle keydowns
 		///
@@ -45,23 +62,20 @@ class LangtonApp {
 		/// @brief Updated with the height each render
 		int winY = INIT_SCREEN_HEIGHT;
 
+		/// @brief The x-coord being centred on
+		int centreX = 0;
+
+		/// @brief The y-coord being centred on
+		int centreY = 0;
+
 		/// @brief Holds the window
 		SDL_Window* window = NULL;
 
 		/// @brief Holds the surface
 		SDL_Surface* screensurface = NULL;
 
-		/// @brief Holds the white-square ant texture
-		SDL_Texture* anttexture = NULL;
-
-		/// @brief Holds the black-square ant texture
-		SDL_Texture* ant_r_texture = NULL;
-
 		/// @brief Holds the renderer
 		SDL_Renderer* renderer;
-
-		/// @brief Easy referencing
-		std::map<Square_Colour, SDL_Texture*> antcols;
 
 		/// @brief The automata
 		LangtonAutomata automata;
