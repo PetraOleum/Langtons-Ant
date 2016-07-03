@@ -57,9 +57,14 @@ bool LangtonApp::OnInit() {
 		fprintf(stderr, "Could not create renderer. SDL error: %s\n", SDL_GetError());
 		return false;
 	}
-	SDL_Surface* loadsurface = SDL_LoadBMP("Ant.bmp");
+	int imgFlags = IMG_INIT_PNG; 
+	if( !( IMG_Init( imgFlags ) & imgFlags ) ) { 
+		 fprintf(stderr, "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() ); 
+		 return false;
+	}
+	SDL_Surface* loadsurface = IMG_Load("Ant.png");
 	if (loadsurface == NULL) {
-		fprintf(stderr, "Could not load Ant.bmp. %s\n", SDL_GetError());
+		fprintf(stderr, "Could not load Ant.png. %s\n", IMG_GetError());
 		return false;
 	}
 	anttexture = SDL_CreateTextureFromSurface(renderer, loadsurface);
@@ -68,9 +73,9 @@ bool LangtonApp::OnInit() {
 		return false;
 	}
 	SDL_FreeSurface(loadsurface);
-	loadsurface = SDL_LoadBMP("Ant_r.bmp");
+	loadsurface = IMG_Load("Ant_r.png");
 	if (loadsurface == NULL) {
-		fprintf(stderr, "Could not load Ant_r.bmp. %s\n", SDL_GetError());
+		fprintf(stderr, "Could not load Ant_r.png. %s\n", IMG_GetError());
 		return false;
 	}
 	ant_r_texture = SDL_CreateTextureFromSurface(renderer, loadsurface);
@@ -87,12 +92,50 @@ bool LangtonApp::OnInit() {
 }
 
 void LangtonApp::OnLoop() {
+	automata.Advance();
+//	running = false;
 
 }
 
 void LangtonApp::OnRender() {
-	SDL_GetWindowSize(window, &winX, &winY);
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(renderer);
+	SDL_GetWindowSize(window, &winX, &winY);
+	int fitsquaresx = winX / SQUARE_SIZE + 2;
+	int fitsquaresy = winY / SQUARE_SIZE + 2;
+//	int expixx = winX % SQUARE_SIZE;
+//	int expixy = winY % SQUARE_SIZE;
+	int originx = winX / 2 - SQUARE_SIZE / 2;
+	int originy = winY / 2 + SQUARE_SIZE / 2;
+	LangtonAnt ant = automata.getAnt();
+	int firstx = ant.x - fitsquaresx / 2;
+	int firsty = ant.y - fitsquaresy / 2;
+	for (int x = firstx; x < fitsquaresx + firstx; x++)
+		for (int y = firsty; y < fitsquaresy + firsty; y++) {
+			SDL_Rect drect = {
+				originx + (x - ant.x) * SQUARE_SIZE, 
+				originy - (y - ant.y) * SQUARE_SIZE, 
+				SQUARE_SIZE, SQUARE_SIZE
+			};
+			Square_Colour sqc = automata.getSquare(x, y);
+			switch (sqc) {
+				case Square_Colour::White:
+					SDL_SetRenderDrawColor(renderer, 
+							0xFF, 
+							0xFF, 
+							0xFF, 
+							0xFF);
+					break;
+				default:
+					SDL_SetRenderDrawColor(renderer, 
+							0x00, 
+							0x00, 
+							0x00, 
+							0xFF);
+					break;
+			}
+			SDL_RenderFillRect(renderer, &drect);
+		}
 	SDL_RenderPresent(renderer);
 }
 
@@ -118,6 +161,7 @@ void LangtonApp::OnCleanup() {
 	ant_r_texture = NULL;
 	window = NULL;
 	renderer = NULL;
+	IMG_Quit();
 	SDL_Quit();
 }
 

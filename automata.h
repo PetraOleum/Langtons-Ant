@@ -64,7 +64,9 @@ class LangtonAutomata {
 	public:
 		/// @brief Constructor
 		LangtonAutomata() {
-
+			ant = {Direction::Up, 0, 0};
+//			ant.x = ant.y = 0;
+//			ant.direction = Direction::Up;
 		}
 
 		/// @brief Destructor

@@ -8,6 +8,7 @@
 #define LANGTONAPP_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "automata.h"
 
@@ -17,7 +18,7 @@
 #define INIT_SCREEN_HEIGHT 500
 
 /// @brief Size of square (int pixels)
-#define SQUARE_SIZE 100
+#define SQUARE_SIZE 10
 
 /// @brief Loop time in (1000 / FPS)
 #define LOOP_TIME (1000/60)
@@ -35,7 +36,7 @@ class LangtonApp {
 
 		/// @brief Handle keydowns
 		///
-		/// @param keyEvent They keyboard event
+		/// @param keyEvent The keyboard event
 		void onKeyDown(SDL_KeyboardEvent* keyEvent);
 
 		/// @brief Updated with the width each render
@@ -61,6 +62,9 @@ class LangtonApp {
 
 		/// @brief Easy referencing
 		std::map<Square_Colour, SDL_Texture*> antcols;
+
+		/// @brief The automata
+		LangtonAutomata automata;
 
 	public:
 		/// @brief Constructor

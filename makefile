@@ -1,5 +1,5 @@
 CC=g++
-LIBS=-lSDL2
+LIBS=-lSDL2 -lSDL2_image
 CFLAGS=-Wall -Wextra -Werror -std=c++11 -Og
 DEPS=langtonapp.h automata.h
 OBJ=main.o langtonapp.o automata.o
