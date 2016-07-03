@@ -7,7 +7,7 @@
 #ifndef LANGTONAPP_H
 #define LANGTONAPP_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 #include "automata.h"
 

@@ -4,13 +4,10 @@
 /// @version 1.0
 /// @date 2016-07-03
 
+#include <windows.h>
 #include "langtonapp.h"
 
-int main(int argc, char* argv[]) {
+int WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
 	LangtonApp app;
-	
-	for (int i = 1; i < argc; i++)
-		printf("%d: %s\n", i, argv[i]);
-
 	return app.OnExecute();
 }
