@@ -1,7 +1,7 @@
 /// @file langtonapp.h
 /// @brief Header file for the SDL app
 /// @author Petra
-/// @version 0.1
+/// @version 1.0
 /// @date 2016-07-03
 
 #ifndef LANGTONAPP_H
@@ -49,6 +49,7 @@ class LangtonApp {
 		/// @brief y when mouse starts clicking
 		int mousestarty = 0;
 
+		/// @brief If the generation is paused or not
 		bool paused = false;
 
 		/// @brief Handle keydowns

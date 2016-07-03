@@ -1,7 +1,7 @@
 /// @file automata.h
 /// @brief Holds the Langton's Ant automata independent of the display
 /// @author Petra
-/// @version 0.1
+/// @version 1.0
 /// @date 2016-07-03
 
 #ifndef AUTOMATA_H
@@ -34,10 +34,19 @@ enum class Direction : uint16_t {
 	Left = 270
 };
 
-/// @brief The direction one clockwise
-#define CLOCKWISE_TURN(D) (Direction)(((uint8_t)(D) + 90) % 360)
-/// @brief The direction one anti-clockwise
-#define ANTI_CLOCKWISE_TURN(D) (Direction)(((uint8_t)(D) + 270) % 360)
+/// @brief Calculate direction change
+///
+/// @param dir Starting direction
+///
+/// @return Direction 90 degrees anti-clockwise
+Direction antiClockwiseTurn(Direction dir);
+
+/// @brief Calculate direction change
+///
+/// @param dir Starting direction
+///
+/// @return Direction 90 degrees clockwise
+Direction clockwiseTurn(Direction dir);
 
 /// @brief Holds the ant itself
 struct LangtonAnt {

@@ -1,7 +1,7 @@
 /// @file langtonapp.cpp
 /// @brief Class/implementation of the app
 /// @author Petra
-/// @version 0.1
+/// @version 1.0
 /// @date 2016-07-03
 
 #include <cstdio>
