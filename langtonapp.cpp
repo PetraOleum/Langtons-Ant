@@ -63,8 +63,12 @@ bool LangtonApp::OnInit() {
 }
 
 void LangtonApp::OnLoop() {
-	if (!paused)
-		automata.Advance();
+	if (!paused) {
+		if (!reversing)
+			automata.Advance();
+		else
+			automata.Reverse();
+	}
 }
 
 void LangtonApp::OnRender() {
@@ -197,6 +201,12 @@ void LangtonApp::onKeyDown(SDL_KeyboardEvent* keyEvent) {
 						SDL_WINDOW_FULLSCREEN_DESKTOP);
 				fullscreen = true;
 			}
+			break;
+		case SDLK_RIGHT:
+			reversing = false;
+			break;
+		case SDLK_LEFT:
+			reversing = true;
 			break;
 		case SDLK_ESCAPE:
 			if (fullscreen) {

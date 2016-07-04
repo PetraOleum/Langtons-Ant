@@ -34,6 +34,9 @@ class LangtonApp {
 		/// @brief Whether the app is running
 		bool running = false;
 
+		/// @brief Whether we are reversing
+		bool reversing = false;
+
 		/// @brief Whether the app is fullscreen
 		bool fullscreen = false;
 

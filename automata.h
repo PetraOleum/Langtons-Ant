@@ -68,7 +68,7 @@ class LangtonAutomata {
 		std::map<point, Square_Colour> squares;
 
 		/// @brief How many turns have passed
-		unsigned int turnNumber = 0;
+		int turnNumber = 0;
 
 	public:
 		/// @brief Constructor
@@ -116,12 +116,15 @@ class LangtonAutomata {
 		/// @brief Expose the turn number
 		///
 		/// @return The turn number (by value)
-		inline unsigned int getTurnNumber() const {
+		unsigned int getTurnNumber() const {
 			return turnNumber;
 		}
 
 		/// @brief Advance one turn
 		void Advance();
+
+		/// @brief Advance one turn - backwards
+		void Reverse();
 
 };
 

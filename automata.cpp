@@ -74,5 +74,38 @@ void LangtonAutomata::Advance() {
 		default:
 			ant.direction = clockwiseTurn(ant.direction);
 			squares[npt] = Square_Colour::Black;
+			break;
 	}
+	turnNumber++;
+}
+
+void LangtonAutomata::Reverse() {
+	point opt = std::make_pair(ant.x, ant.y);
+	Square_Colour ocol = getSquare(opt);
+	switch (ocol) {
+		case Square_Colour::White:
+			squares[opt] = Square_Colour::Black;
+			ant.direction = clockwiseTurn(ant.direction);
+			break;
+		default:
+			squares[opt] = Square_Colour::White;
+			ant.direction = antiClockwiseTurn(ant.direction);
+			break;
+	}
+	switch (ant.direction) {
+		case Direction::Up:
+			ant.y--;
+			break;
+		case Direction::Right:
+			ant.x--;
+			break;
+		case Direction::Down:
+			ant.y++;
+			break;
+		case Direction::Left:
+			ant.x++;
+			break;
+
+	}
+	turnNumber--;
 }
