@@ -96,30 +96,38 @@ void LangtonApp::OnRender() {
 				squareSize, squareSize
 			};
 			Square_Colour sqc = automata.getSquare(x, y);
-			switch (sqc) {
-				case Square_Colour::White:
-					SDL_SetRenderDrawColor(renderer, 
-							0xFF, 
-							0xFF, 
-							0xFF, 
-							0xFF);
-					break;
-				default:
-					SDL_SetRenderDrawColor(renderer, 
-							0x00, 
-							0x00, 
-							0x00, 
-							0xFF);
-					break;
-			}
 			if (x == ant.x && y == ant.y) {
 				SDL_SetRenderDrawColor(renderer,
 						0xFF,
 						0x00,
 						0x00,
 						0xFF);
+				SDL_RenderFillRect(renderer, &drect);
 			}
-			SDL_RenderFillRect(renderer, &drect);
+			else if (sqc == Square_Colour::White) {
+				SDL_SetRenderDrawColor(renderer, 
+						0xFF, 
+						0xFF, 
+						0xFF, 
+						0xFF);
+				SDL_RenderFillRect(renderer, &drect);
+			}
+//			switch (sqc) {
+//				case Square_Colour::White:
+//					SDL_SetRenderDrawColor(renderer, 
+//							0xFF, 
+//							0xFF, 
+//							0xFF, 
+//							0xFF);
+//					break;
+//				default:
+//					SDL_SetRenderDrawColor(renderer, 
+//							0x00, 
+//							0x00, 
+//							0x00, 
+//							0xFF);
+//					break;
+//			}
 		}
 
 	SDL_RenderPresent(renderer);
