@@ -19,3 +19,4 @@ Controls:
 * +/- and scroll wheel: Zoom
 * Click and drag: pan around
 * P: Pause
+* Left/Right arrows: reverse/forwards
