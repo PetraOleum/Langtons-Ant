@@ -20,3 +20,4 @@ Controls:
 * Click and drag: pan around
 * P: Pause
 * Left/Right arrows: reverse/forwards
+* N: Move one step

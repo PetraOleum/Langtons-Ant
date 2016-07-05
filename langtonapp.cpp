@@ -210,6 +210,12 @@ void LangtonApp::onKeyDown(SDL_KeyboardEvent* keyEvent) {
 				fullscreen = true;
 			}
 			break;
+		case SDLK_n:
+			if (reversing)
+				automata.Reverse();
+			else
+				automata.Advance();
+			break;
 		case SDLK_RIGHT:
 			reversing = false;
 			break;
