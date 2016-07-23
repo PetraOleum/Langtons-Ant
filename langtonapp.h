@@ -75,9 +75,6 @@ class LangtonApp {
 		/// @brief Holds the window
 		SDL_Window* window = NULL;
 
-		/// @brief Holds the surface
-		SDL_Surface* screensurface = NULL;
-
 		/// @brief Holds the renderer
 		SDL_Renderer* renderer;
 
